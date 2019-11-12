@@ -1,0 +1,38 @@
+{
+  "name": "multi-stream-chatbot",
+  "version": "1.0.0",
+  "description": "Chatbot framework that listens and sends messages to multiple streaming platforms simultaneously",
+  "main": "index.js",
+  "files": [
+    "actions",
+    "auth",
+    "streams",
+    "util",
+    "bot"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackerShackOfficial/multi-stream-chatbot.git"
+  },
+  "keywords": [
+    "twitch",
+    "youtube",
+    "chatbot",
+    "multi",
+    "stream"
+  ],
+  "author": "atainter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HackerShackOfficial/multi-stream-chatbot/issues"
+  },
+  "dependencies": {
+    "googleapis": "~42.0.0",
+    "node-fetch": "~2.6.0",
+    "tmi.js": "~1.4.5"
+  },
+  "homepage": "https://github.com/HackerShackOfficial/multi-stream-chatbot#readme"
+}
