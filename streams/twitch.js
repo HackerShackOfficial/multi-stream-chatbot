@@ -33,7 +33,7 @@ class TwitchStream extends stream.AbstractStream {
         password: twitchAuth.oauthToken
       },
       channels: [twitchAuth.channel],
-      ...clientOpts
+      ...customClientOpts
     };
 
     // Bind class methods
