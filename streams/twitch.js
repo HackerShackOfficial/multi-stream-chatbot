@@ -23,7 +23,7 @@ class TwitchTargetedMessagePublisher extends stream.AbstractTargetedMessagePubli
 }
 
 class TwitchStream extends stream.AbstractStream {
-  constructor(twitchAuth, {customClientOpts = {}}) {
+  constructor(twitchAuth, {customClientOpts = {}} = {}) {
     super();
 
     // Define configuration options
