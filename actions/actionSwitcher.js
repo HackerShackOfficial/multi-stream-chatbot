@@ -1,46 +1,46 @@
 class ActionSwitcher {
-  constructor(actions, { blacklisted = [] }) {
-    this.blacklisted = blacklisted;
-    this.actions = actions;
-  }
-
-  async getMessages(message, ctx) {
-    var messages = [];
-
-    for (action of this.actions) {
-      const generatedMessage = await action.getMessage(message, ctx);
-
-      if (!generatedMessage) {
-        continue;
-      }
-
-      const actionName = this.getActionName(action);
-
-      if (this.isBacklisted(actionName)) {
-        console.log(
-          `* Streambot ignored blacklisted ${actionName} command "${message}"`
-        );
-      } else {
-        messages.push(generatedMessage);
-        console.log(
-          `* Streambot executed ${actionName} command for "${message}"`
-        );
-      }
+    constructor(actions, { blacklisted = [] }) {
+        this.blacklisted = blacklisted
+        this.actions = actions
     }
 
-    return messages;
-  }
+    async getMessages(message, ctx) {
+        var messages = []
 
-  getActionName(action) {
-    return action.constructor.name;
-  }
+        for (action of this.actions) {
+            const generatedMessage = await action.getMessage(message, ctx)
 
-  isBacklisted(actionName) {
-    if (!this.blacklisted) {
-      return false;
+            if (!generatedMessage) {
+                continue
+            }
+
+            const actionName = this.getActionName(action)
+
+            if (this.isBacklisted(actionName)) {
+                console.log(
+                    `* Streambot ignored blacklisted ${actionName} command "${message}"`
+                )
+            } else {
+                messages.push(generatedMessage)
+                console.log(
+                    `* Streambot executed ${actionName} command for "${message}"`
+                )
+            }
+        }
+
+        return messages
     }
-    return actionName && this.blacklisted.includes(actionName);
-  }
+
+    getActionName(action) {
+        return action.constructor.name
+    }
+
+    isBacklisted(actionName) {
+        if (!this.blacklisted) {
+            return false
+        }
+        return actionName && this.blacklisted.includes(actionName)
+    }
 }
 
-module.exports = ActionSwitcher;
+module.exports = ActionSwitcher
