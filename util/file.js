@@ -1,6 +1,6 @@
 // file.js
-const util = require('util');
-const fs = require('fs');
+const util = require("util");
+const fs = require("fs");
 
 const writeFilePromise = util.promisify(fs.writeFile);
 const readFilePromise = util.promisify(fs.readFile);
@@ -15,6 +15,6 @@ const read = async path => {
 };
 
 module.exports = {
-	read: read,
-	save: save
-}
+  read: read,
+  save: save
+};

@@ -11,7 +11,8 @@
     "bot"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretty": "prettier --write **/*.js"
   },
   "repository": {
     "type": "git",
@@ -34,5 +35,8 @@
     "node-fetch": "~2.6.0",
     "tmi.js": "~1.4.5"
   },
-  "homepage": "https://github.com/HackerShackOfficial/multi-stream-chatbot#readme"
+  "homepage": "https://github.com/HackerShackOfficial/multi-stream-chatbot#readme",
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
 }

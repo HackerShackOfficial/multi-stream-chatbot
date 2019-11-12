@@ -1,9 +1,9 @@
 // chatActionInterface.py
 
 class ChatActionInterface {
-	async getMessage(message, ctx) {
-		throw new Error('Unimplemented')
-	}
+  async getMessage(message, ctx) {
+    throw new Error("Unimplemented");
+  }
 }
 
-module.exports = ChatActionInterface
+module.exports = ChatActionInterface;
