@@ -1,4 +1,3 @@
-// youtubeAuth.js
 const file = require("../util/file");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;

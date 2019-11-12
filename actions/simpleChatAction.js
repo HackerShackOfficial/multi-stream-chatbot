@@ -1,4 +1,3 @@
-// simpleChatAction.js
 var ChatActionInterface = require("./chatActionInterface");
 
 class AbstractSimpleChatAction extends ChatActionInterface {

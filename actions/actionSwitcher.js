@@ -1,5 +1,3 @@
-// actionSwitcher.js
-
 class ActionSwitcher {
   constructor(actions, { blacklisted = [] }) {
     this.blacklisted = blacklisted;

@@ -1,5 +1,3 @@
-// messageParser.js
-
 class MessageParser {
   parseCommand(message) {
     const trimmedMessage = message.trim();

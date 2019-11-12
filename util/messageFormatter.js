@@ -1,5 +1,3 @@
-// messageFormatter.js
-
 class MessageFormatter {
   static createMessageParts(str, maxLength) {
     var partIndex = 0;

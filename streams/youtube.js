@@ -1,4 +1,3 @@
-// youtube.js
 const stream = require("./stream");
 const file = require("../util/file");
 const google = require("googleapis").google;
@@ -53,7 +52,7 @@ class YoutubeTargetedMessagePublisher extends stream.AbstractTargetedMessagePubl
 }
 
 class YoutubeStream extends stream.AbstractStream {
-  constructor(youtubeAuth, pollrate = 5000) {
+  constructor(youtubeAuth, {pollrate = 5000}) {
     super();
 
     this.pollrate = pollrate;

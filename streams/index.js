@@ -1,4 +1,3 @@
-// index.js
 const DummyStream = require("./dummy");
 const TwitchStream = require("./twitch");
 const YoutubeStream = require("./youtube");

@@ -1,4 +1,3 @@
-// dummy.js
 const stream = require("./stream");
 
 class DummyTargetedMessagePublisher extends stream.AbstractTargetedMessagePublisher {

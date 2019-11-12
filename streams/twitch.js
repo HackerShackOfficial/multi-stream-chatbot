@@ -1,4 +1,3 @@
-// twitch.js
 const stream = require("./stream");
 const tmi = require("tmi.js");
 const MessageFormatter = require("../util/messageFormatter");
@@ -24,16 +23,17 @@ class TwitchTargetedMessagePublisher extends stream.AbstractTargetedMessagePubli
 }
 
 class TwitchStream extends stream.AbstractStream {
-  constructor() {
+  constructor(twitchAuth, {customClientOpts = {}}) {
     super();
 
     // Define configuration options
     const opts = {
       identity: {
-        username: "HSbot",
-        password: process.env.TWITCH_BOT_KEY
+        username: twitchAuth.botUsername,
+        password: twitchAuth.oauthToken
       },
-      channels: ["HackerShackOfficial"]
+      channels: [twitchAuth.channel],
+      ...clientOpts
     };
 
     // Bind class methods
@@ -51,9 +51,11 @@ class TwitchStream extends stream.AbstractStream {
   }
 
   onMessageHandler(target, context, msg, self) {
+    // Ignore messages from the bot
     if (self) {
       return;
-    } // Ignore messages from the bot
+    }
+
     const publisher = new TwitchTargetedMessagePublisher(this.client, target);
     this.notifyListeners(msg, publisher);
   }

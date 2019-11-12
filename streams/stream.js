@@ -1,5 +1,3 @@
-// stream.js
-
 class AbstractStream {
   constructor() {
     this.listeners = [];

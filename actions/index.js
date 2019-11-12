@@ -1,4 +1,3 @@
-// index.js
 const ChatActionInterface = require("./chatActionInterface");
 const MessageParser = require("./messageParser");
 const AbstractSimpleChatAction = require("./simpleChatAction");

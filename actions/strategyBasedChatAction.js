@@ -1,4 +1,3 @@
-// strategyBasedChatAction.js
 const ChatActionInterface = require("./chatActionInterface");
 
 class AbstractMessageStrategy {
