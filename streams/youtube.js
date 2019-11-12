@@ -52,7 +52,7 @@ class YoutubeTargetedMessagePublisher extends stream.AbstractTargetedMessagePubl
 }
 
 class YoutubeStream extends stream.AbstractStream {
-  constructor(youtubeAuth, {pollrate = 5000} = {}) {
+  constructor(youtubeAuth, { pollrate = 5000 } = {}) {
     super();
 
     this.pollrate = pollrate;
@@ -100,22 +100,25 @@ class YoutubeStream extends stream.AbstractStream {
     }
 
     const request = this.buildListChatMessagesRequest();
-    const response = await this.youtube.liveChatMessages.list(request);
 
+    const response = await this.youtube.liveChatMessages.list(request);
     const data = response.data;
     const newMessages = data.items;
     this.pageToken = data.nextPageToken;
 
-    if (newMessages.length > 0) {
-      const publisher = new YoutubeTargetedMessagePublisher(
-        this.youtube,
-        this.youtubeAuth,
-        this.chatId
-      );
-      newMessages.forEach(chatMessage => {
-        this.notifyListenerIfNeeded(chatMessage, publisher);
-      });
+    if (newMessages.length <= 0) {
+      return;
     }
+
+    const publisher = new YoutubeTargetedMessagePublisher(
+      this.youtube,
+      this.youtubeAuth,
+      this.chatId
+    );
+
+    newMessages.forEach(chatMessage => {
+      this.notifyListenerIfNeeded(chatMessage, publisher);
+    });
   }
 
   buildListChatMessagesRequest() {
@@ -131,22 +134,24 @@ class YoutubeStream extends stream.AbstractStream {
     const snippet = chatMessage.snippet;
     const publishedAt = new Date(snippet.publishedAt);
 
-    if (publishedAt > this.startTime) {
-      if (snippet.type === "textMessageEvent") {
-        const messageText = snippet.textMessageDetails.messageText
-          .split(String.fromCharCode(8203))
-          .join("");
-        this.notifyListeners(messageText, publisher);
-      } else if (snippet.type == "superChatEvent") {
-        const value = parseInt(snippet.superChatDetails.amountMicros);
-        const messageText = snippet.superChatDetails.userComment
-          .split(String.fromCharCode(8203))
-          .join("");
-        this.notifyListeners(messageText, publisher, {
-          superChat: true,
-          value: value
-        });
-      }
+    if (publishedAt <= this.startTime) {
+      return;
+    }
+
+    if (snippet.type === "textMessageEvent") {
+      const messageText = snippet.textMessageDetails.messageText
+        .split(String.fromCharCode(8203))
+        .join("");
+      this.notifyListeners(messageText, publisher);
+    } else if (snippet.type == "superChatEvent") {
+      const value = parseInt(snippet.superChatDetails.amountMicros);
+      const messageText = snippet.superChatDetails.userComment
+        .split(String.fromCharCode(8203))
+        .join("");
+      this.notifyListeners(messageText, publisher, {
+        superChat: true,
+        value
+      });
     }
   }
 }
