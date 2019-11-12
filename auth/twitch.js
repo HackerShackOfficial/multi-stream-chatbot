@@ -5,3 +5,5 @@ class TwitchAuth {
     this.channel = channel 
   }
 }
+
+module.exports = TwitchAuth
