@@ -5,7 +5,7 @@ class MessageFormatter {
 
         const tokensSplitBySpaces = str.split(" ")
 
-        return tokensSplitBySpaces.reduce((acc, token) => {
+        return tokensSplitBySpaces.reduce((acc, token, idx) => {
             if (token.length > maxLength) {
                 throw new Error(
                     `Message part was longer than maxLength: ${maxLength}`
@@ -13,7 +13,7 @@ class MessageFormatter {
             } else if (currentPart.length + token.length > maxLength) {
                 currentPart = ""
                 partIndex++
-            } else {
+            } else if (idx > 0) {
                 currentPart += " "
             }
 

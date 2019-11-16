@@ -11,8 +11,9 @@
     "bot"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "pretty": "prettier --write **/*.js"
+    "test": "jest",
+    "pretty": "prettier --check **/*.js",
+    "fix-pretty": "prettier --write **/*.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   },
   "homepage": "https://github.com/HackerShackOfficial/multi-stream-chatbot#readme",
   "devDependencies": {
+    "jest": "^24.9.0",
     "prettier": "^1.19.1"
   }
 }
