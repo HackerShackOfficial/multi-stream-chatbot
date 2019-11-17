@@ -28,7 +28,7 @@ class AbstractStrategyBasedChatAction extends ChatActionInterface {
 
   async getMessage(message, ctx) {
     for (const strategy of this.strategies) {
-      const strategyMessage = strategy.getMessage(message, ctx);
+      const strategyMessage = await strategy.getMessage(message, ctx);
 
       if (strategyMessage) {
         return strategyMessage;
