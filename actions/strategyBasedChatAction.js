@@ -18,6 +18,7 @@ class AbstractMessageStrategy {
 
 class AbstractStrategyBasedChatAction extends ChatActionInterface {
     constructor() {
+        super()
         this.strategies = this.registerStrategies()
     }
 
@@ -26,7 +27,7 @@ class AbstractStrategyBasedChatAction extends ChatActionInterface {
     }
 
     async getMessage(message, ctx) {
-        for (strategy of this.strategies) {
+        for (const strategy of this.strategies) {
             const message = strategy.getMessage(message, ctx)
 
             if (message) {
