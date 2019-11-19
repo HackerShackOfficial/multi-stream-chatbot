@@ -56,11 +56,18 @@ class TwitchStream extends stream.AbstractStream {
             return
         }
 
+        const ctx = {
+            author: {
+                id: context["username"],
+                displayName: context["display-name"]
+            }
+        }
+
         const publisher = new TwitchTargetedMessagePublisher(
             this.client,
             target
         )
-        this.notifyListeners(msg, publisher)
+        this.notifyListeners(msg, publisher, ctx)
     }
 
     onConnectedHandler(addr, port) {

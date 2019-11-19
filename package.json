@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/HackerShackOfficial/multi-stream-chatbot#readme",
   "devDependencies": {
-    "jest": "^24.9.0",
-    "prettier": "^1.19.1"
+    "jest": "~24.9.0",
+    "prettier": "~1.19.1"
   }
 }

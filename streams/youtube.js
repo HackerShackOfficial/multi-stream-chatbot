@@ -124,10 +124,29 @@ class YoutubeStream extends stream.AbstractStream {
     buildListChatMessagesRequest() {
         return {
             auth: this.youtubeAuth.getAuth(),
-            part: "snippet",
+            part: "snippet,authorDetails",
             liveChatId: this.chatId,
             pageToken: this.pageToken
         }
+    }
+
+    getAuthorDetails(chatMessage) {
+        const authorDetails = chatMessage.authorDetails || {}
+
+        return {
+            id: authorDetails.channelId,
+            displayName: authorDetails.displayName
+        }
+    }
+
+    getSharedContext(chatMessage) {
+        return {
+            author: this.getAuthorDetails(chatMessage)
+        }
+    }
+
+    removeBadCharacters(message) {
+        return message.split(String.fromCharCode(8203)).join("")
     }
 
     notifyListenerIfNeeded(chatMessage, publisher) {
@@ -138,20 +157,28 @@ class YoutubeStream extends stream.AbstractStream {
             return
         }
 
-        if (snippet.type === "textMessageEvent") {
-            const messageText = snippet.textMessageDetails.messageText
-                .split(String.fromCharCode(8203))
-                .join("")
-            this.notifyListeners(messageText, publisher)
-        } else if (snippet.type == "superChatEvent") {
-            const value = parseInt(snippet.superChatDetails.amountMicros)
-            const messageText = snippet.superChatDetails.userComment
-                .split(String.fromCharCode(8203))
-                .join("")
-            this.notifyListeners(messageText, publisher, {
-                superChat: true,
-                value
-            })
+        const ctx = this.getSharedContext(chatMessage)
+
+        switch (snippet.type) {
+            case "textMessageEvent":
+                const messageText = this.removeBadCharacters(
+                    snippet.textMessageDetails.messageText
+                )
+                this.notifyListeners(messageText, publisher, ctx)
+                break
+            case "superChatEvent":
+                const value = parseInt(snippet.superChatDetails.amountMicros)
+                const messageText = this.removeBadCharacters(
+                    snippet.superChatDetails.userComment
+                )
+                this.notifyListeners(messageText, publisher, {
+                    superChat: true,
+                    value,
+                    ...ctx
+                })
+                break
+            default:
+                break
         }
     }
 }
