@@ -161,22 +161,22 @@ class YoutubeStream extends stream.AbstractStream {
 
         switch (snippet.type) {
             case "textMessageEvent":
-                const messageText = this.removeBadCharacters(
+                const textMessage = this.removeBadCharacters(
                     snippet.textMessageDetails.messageText
                 )
-                this.notifyListeners(messageText, publisher, ctx)
-                break
+                this.notifyListeners(textMessage, publisher, ctx)
+                return
             case "superChatEvent":
                 const value = parseInt(snippet.superChatDetails.amountMicros)
-                const messageText = this.removeBadCharacters(
+                const superchatMessage = this.removeBadCharacters(
                     snippet.superChatDetails.userComment
                 )
-                this.notifyListeners(messageText, publisher, {
+                this.notifyListeners(superchatMessage, publisher, {
                     superChat: true,
                     value,
                     ...ctx
                 })
-                break
+                return
             default:
                 break
         }
