@@ -56,7 +56,9 @@ class YoutubeAuth {
     }
 
     async checkTokens() {
-        const tokens = await file.read(this.tokenFilePath)
+        const file_contents = await file.read(this.tokenFilePath)
+        const tokens = JSON.parse(fileContents)
+
         if (tokens) {
             this.auth.setCredentials(tokens)
         } else {

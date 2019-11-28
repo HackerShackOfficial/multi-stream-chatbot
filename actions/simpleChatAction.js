@@ -7,7 +7,8 @@ class AbstractSimpleChatAction extends ChatActionInterface {
 
     async getMessage(message, ctx) {
         if (this.matchesCommand(message, ctx)) {
-            return this.makeMessage(message, ctx)
+            const message = await this.makeMessage(message, ctx)
+            return message
         }
     }
 

@@ -1,13 +1,23 @@
 # multi-stream-chatbot
 Chatbot framework that listens and sends messages to multiple live-streaming platforms simultaneously
 
+[![Actions Status](https://xxx.execute-api.us-west-2.amazonaws.com/production/badge/{owner}/{repo})](https://xxx.execute-api.us-west-2.amazonaws.com/production/results/HackerShackOfficial/multi-stream-chatbot)
+
 ## Documentation
 
-_WIP_
+### Bot
+
+
+
+### Streams
+
+### Actions
 
 ## Test Locally
 
-_WIP_
+```
+npm test
+```
 
 ## Example
 

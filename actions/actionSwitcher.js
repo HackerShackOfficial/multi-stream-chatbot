@@ -18,12 +18,12 @@ class ActionSwitcher {
 
             if (this.isBacklisted(actionName)) {
                 console.log(
-                    `* Streambot ignored blacklisted ${actionName} command "${message}"`
+                    `* Streambot ignored blacklisted ${actionName} command "${message}" -> "${generatedMessage}"`
                 )
             } else {
                 messages.push(generatedMessage)
                 console.log(
-                    `* Streambot executed ${actionName} command for "${message}"`
+                    `* Streambot executed ${actionName} command for "${message}" -> "${generatedMessage}"`
                 )
             }
         }

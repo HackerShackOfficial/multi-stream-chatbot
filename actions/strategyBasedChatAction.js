@@ -7,7 +7,8 @@ class AbstractMessageStrategy {
 
     async getMessage(message, ctx) {
         if (this.matches(message, ctx)) {
-            return this.makeMessage(message, ctx)
+            const message = await this.makeMessage(message, ctx)
+            return message
         }
     }
 

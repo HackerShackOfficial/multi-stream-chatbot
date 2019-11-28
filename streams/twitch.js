@@ -26,6 +26,10 @@ class TwitchStream extends stream.AbstractStream {
     constructor(twitchAuth, { customClientOpts = {} } = {}) {
         super()
 
+        if (!twitchAuth) {
+            throw new Error("Must define twitchAuth to start a twitch stream")
+        }
+
         // Define configuration options
         const opts = {
             identity: {
@@ -56,10 +60,12 @@ class TwitchStream extends stream.AbstractStream {
             return
         }
 
+        const safeCtx = context || {}
+
         const ctx = {
             author: {
-                id: context["username"],
-                displayName: context["display-name"]
+                id: safeCtx["username"],
+                displayName: safeCtx["display-name"]
             }
         }
 
