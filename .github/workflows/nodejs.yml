@@ -21,6 +21,10 @@ jobs:
       run: |
         npm install
         npm run pretty
+      env:
+        CI: true
+    - name: tests
+      run: |
         npm test
       env:
         CI: true
