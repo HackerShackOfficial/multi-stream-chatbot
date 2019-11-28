@@ -14,7 +14,7 @@ class AbstractStream {
     }
 
     removeMessageHandler(handler) {
-        listeners = this.listeners.filter(l => l !== handler)
+        this.listeners = this.listeners.filter(l => l !== handler)
     }
 
     notifyListeners(message, publisher, ctx) {

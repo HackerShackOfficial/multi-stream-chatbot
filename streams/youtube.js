@@ -1,5 +1,4 @@
 const stream = require("./stream")
-const file = require("../util/file")
 const google = require("googleapis").google
 const MessageFormatter = require("../util/messageFormatter")
 
@@ -52,14 +51,18 @@ class YoutubeTargetedMessagePublisher extends stream.AbstractTargetedMessagePubl
 }
 
 class YoutubeStream extends stream.AbstractStream {
-    constructor(youtubeAuth, { pollrate = 5000 } = {}) {
+    constructor(youtubeAuth, { pollrate = 5000, youtubeAPI } = {}) {
         super()
+
+        if (!youtubeAuth) {
+            throw new Error("Must define youtubeAuth to start a youtube stream")
+        }
 
         this.pollrate = pollrate
         this.pageToken = undefined
         this.startTime = new Date()
         this.youtubeAuth = youtubeAuth
-        this.youtube = google.youtube("v3")
+        this.youtube = youtubeAPI || google.youtube("v3")
 
         this.getChatMessages = this.getChatMessages.bind(this)
 
@@ -149,6 +152,29 @@ class YoutubeStream extends stream.AbstractStream {
         return message.split(String.fromCharCode(8203)).join("")
     }
 
+    notifyTextMessage(chatMessage, publisher) {
+        const ctx = this.getSharedContext(chatMessage)
+        const snippet = chatMessage.snippet
+        const textMessage = this.removeBadCharacters(
+            snippet.textMessageDetails.messageText
+        )
+        this.notifyListeners(textMessage, publisher, ctx)
+    }
+
+    notifySuperChatMessage(chatMessage, publisher) {
+        const ctx = this.getSharedContext(chatMessage)
+        const snippet = chatMessage.snippet
+        const value = parseInt(snippet.superChatDetails.amountMicros)
+        const superchatMessage = this.removeBadCharacters(
+            snippet.superChatDetails.userComment
+        )
+        this.notifyListeners(superchatMessage, publisher, {
+            superChat: true,
+            value,
+            ...ctx
+        })
+    }
+
     notifyListenerIfNeeded(chatMessage, publisher) {
         const snippet = chatMessage.snippet
         const publishedAt = new Date(snippet.publishedAt)
@@ -157,26 +183,11 @@ class YoutubeStream extends stream.AbstractStream {
             return
         }
 
-        const ctx = this.getSharedContext(chatMessage)
-
         switch (snippet.type) {
             case "textMessageEvent":
-                const textMessage = this.removeBadCharacters(
-                    snippet.textMessageDetails.messageText
-                )
-                this.notifyListeners(textMessage, publisher, ctx)
-                return
+                return this.notifyTextMessage(chatMessage, publisher)
             case "superChatEvent":
-                const value = parseInt(snippet.superChatDetails.amountMicros)
-                const superchatMessage = this.removeBadCharacters(
-                    snippet.superChatDetails.userComment
-                )
-                this.notifyListeners(superchatMessage, publisher, {
-                    superChat: true,
-                    value,
-                    ...ctx
-                })
-                return
+                return this.notifySuperChatMessage(chatMessage, publisher)
             default:
                 break
         }

@@ -10,8 +10,7 @@ const save = async (path, str) => {
 }
 
 const read = async path => {
-    const fileContents = await readFilePromise(path)
-    return JSON.parse(fileContents)
+    return await readFilePromise(path)
 }
 
 module.exports = {
