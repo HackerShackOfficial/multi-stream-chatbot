@@ -45,18 +45,42 @@ bot.start()
 
 ```
 
-### Bot
-
-
-
 ### Streams
 
+Supports:
+
+- Youtube
+- Twitch
+- Dummy (Interval)
+
 ### Actions
+
+#### SimpleChatAction
+
+Handles one command. See [DiceAction](https://github.com/HackerShackOfficial/hackershack-livestream-chatbot/blob/master/src/actions/registered/diceRollAction.js) for more details.
+
+```js 
+var {
+    AbstractSimpleChatAction,
+} = require("multi-stream-chatbot/actions")
+```
+
+#### StrategyBasedChatAction
+
+Handles multiple commands that share state. See [PollActions](https://github.com/HackerShackOfficial/hackershack-livestream-chatbot/blob/master/src/actions/registered/pollAction.js) for more details.
+
+```js 
+var {
+    AbstractStrategyBasedChatAction,
+    AbstractMessageStrategy,
+} = require("multi-stream-chatbot/actions")
+```
 
 ## Test Locally
 
 ```
 npm test
+npm pretty
 ```
 
 ## Example
