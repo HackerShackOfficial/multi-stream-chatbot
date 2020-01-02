@@ -7,6 +7,14 @@ Chatbot framework that listens and sends messages to multiple live-streaming pla
 
 ### Quick Start
 
+Create a node project:
+
+```bash
+npm init
+```
+
+Post the following content in `index.js`:
+
 ```js
 // Create an action
 class DiceRollAction extends AbstractSimpleChatAction {
@@ -43,6 +51,20 @@ const bot = new StreamBot({
 // Start the bot
 bot.start()
 
+```
+
+Create environment variables for your Twitch stream authentication:
+
+```
+TWITCH_BOT_KEY,
+TWITCH_BOT_USERNAME,
+TWITCH_CHANNEL
+```
+
+Run the program:
+
+```
+node index.js
 ```
 
 ### Streams
