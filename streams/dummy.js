@@ -7,14 +7,15 @@ class DummyTargetedMessagePublisher extends stream.AbstractTargetedMessagePublis
 }
 
 class DummyStream extends stream.AbstractStream {
-    constructor(command) {
+    constructor({ command, interval_ms = 5000 }) {
         super()
         this.command = command
+        this.interval_ms = interval_ms
         this.getChatMessage = this.getChatMessage.bind(this)
     }
 
     listen() {
-        this.interval = setInterval(this.getChatMessage, 5000)
+        this.interval = setInterval(this.getChatMessage, this.interval_ms)
         console.log(`* Initialized DummyStream`)
     }
 
