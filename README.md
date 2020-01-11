@@ -3,6 +3,8 @@ Chatbot framework that listens and sends messages to multiple live-streaming pla
 
 ![](https://github.com/HackerShackOfficial/multi-stream-chatbot/workflows/Node%20CI/badge.svg)
 
+[![NPM](https://nodei.co/npm/multi-stream-chatbot.png)](https://nodei.co/npm/multi-stream-chatbot/)
+
 ## Documentation
 
 ### Quick Start
@@ -16,6 +18,11 @@ npm init
 Post the following content in `index.js`:
 
 ```js
+const { StreamBot } = require("multi-stream-chatbot")
+const {TwitchStream} = require("multi-stream-chatbot/streams")
+const TwitchAuth = require("multi-stream-chatbot/auth/twitch")
+const {AbstractSimpleChatAction} = require("multi-stream-chatbot/actions")
+
 // Create an action
 class DiceRollAction extends AbstractSimpleChatAction {
     matchesCommand(message, ctx) {
