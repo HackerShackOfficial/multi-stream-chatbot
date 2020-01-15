@@ -5,6 +5,8 @@ Chatbot framework that listens and sends messages to multiple live-streaming pla
 
 [![NPM](https://nodei.co/npm/multi-stream-chatbot.png)](https://nodei.co/npm/multi-stream-chatbot/)
 
+Watch our [demo video](https://youtu.be/hGiNf4Wnbkc) to learn more
+
 ## Documentation
 
 ### Quick Start
