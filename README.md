@@ -21,7 +21,7 @@ Post the following content in `index.js`:
 const { StreamBot } = require("multi-stream-chatbot")
 const {TwitchStream} = require("multi-stream-chatbot/streams")
 const TwitchAuth = require("multi-stream-chatbot/auth/twitch")
-const {AbstractSimpleChatAction} = require("multi-stream-chatbot/actions")
+const {AbstractSimpleChatAction, MessageParser} = require("multi-stream-chatbot/actions")
 
 // Create an action
 class DiceRollAction extends AbstractSimpleChatAction {
